@@ -2,7 +2,7 @@ declare global {
   var mongoClientPromise: Promise<MongoClient>; // This must be a `var` and not a `let / const`
 }
 
-import { MongoClient, ServerApiVersion } from 'mongodb';
+import { MongoClient } from 'mongodb';
 
 const URI = process.env.MONGODB_URI!;
 const options = {};
@@ -28,29 +28,3 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 export default clientPromise;
-
-// ****************
-
-// const main = async () => {
-//   await client.connect();
-//   console.log('Connected successfully to server');
-//   const db = client.db(dbName);
-//   const collection = db.collection('movies');
-
-//   return 'done';
-// };
-// main()
-//   .then(console.log)
-//   .catch(console.error)
-//   .finally(() => client.close());
-
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-// const client = new MongoClient(URI, {
-//   serverApi: {
-//     version: ServerApiVersion.v1,
-//     strict: true,
-//     deprecationErrors: true,
-//   },
-// });
-
-// export default client;
