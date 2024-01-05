@@ -1,9 +1,7 @@
 import * as mongoDB from 'mongodb';
 import clientPromise from '.';
 
-// import client from '.';
-
-let client;
+let client: mongoDB.MongoClient;
 let db: mongoDB.Db;
 let movies: mongoDB.Collection;
 
@@ -55,8 +53,6 @@ export const getMovies = async (
     console.log('countOfMovies: ', countOfMovies);
 
     return JSON.parse(JSON.stringify(moviesArray));
-
-    // return moviesArray;
   } catch (error) {
     return { error: 'failed to fetch movies' };
   }
