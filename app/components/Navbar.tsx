@@ -22,6 +22,12 @@ const Navbar = () => {
             >
               Movies
             </Link>
+            <Link
+              href='/pagination'
+              className='flex text-white font-semibold px-4 py-1 text-xs md:text-sm'
+            >
+              Pagination test
+            </Link>
           </>
         </div>
       </nav>

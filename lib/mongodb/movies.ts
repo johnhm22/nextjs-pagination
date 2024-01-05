@@ -1,10 +1,11 @@
+import * as mongoDB from 'mongodb';
 import clientPromise from '.';
 
 // import client from '.';
 
 let client;
-let db;
-let movies;
+let db: mongoDB.Db;
+let movies: mongoDB.Collection;
 
 // database name
 const dbName = 'sample_mflix';
@@ -28,52 +29,35 @@ const init = async () => {
   await init();
 })();
 
-export const getMovies = async (skip: number, limit: number) => {
+type Movies = {
+  _id: string;
+  title: string;
+  poster: string;
+  cast: string[];
+  year: number;
+};
+
+export const getMovies = async (
+  page: number = 0,
+  limit: number = 12
+): Promise<Movies[]> => {
   try {
+    const skip = page * limit;
     let moviesArray = [];
     if (!movies) await init();
     const result = await movies.find().limit(limit).skip(skip);
-    //   .map((user) => ({ ...user, _id: user._id.toString() }))
-    //   .toArray();
 
     for await (const mov of result) {
       moviesArray.push(mov);
     }
 
-    const countOfMovies = await movies.count();
+    const countOfMovies = await movies.countDocuments();
     console.log('countOfMovies: ', countOfMovies);
 
-    // console.log(moviesArray);
-    return moviesArray;
+    return JSON.parse(JSON.stringify(moviesArray));
+
+    // return moviesArray;
   } catch (error) {
     return { error: 'failed to fetch movies' };
   }
 };
-
-//database name
-// const dbName = 'sample_mflix';
-
-// export const run = async () => {
-//   try {
-//     // Connect the client to the server	(optional starting in v4.7)
-//     await client.connect();
-//     // Send a ping to confirm a successful connection
-//     await client.db('admin').command({ ping: 1 });
-//     console.log(
-//       'Pinged your deployment. You successfully connected to MongoDB!'
-//     );
-//     let moviesArray = [];
-//     const db = client.db(dbName);
-//     const collection = db.collection('movies').find().limit(10);
-
-//     for await (const mov of collection) {
-//       moviesArray.push(mov);
-//     }
-//     console.log(moviesArray);
-//   } finally {
-//     // Ensures that the client will close when you finish/error
-//     await client.close();
-//   }
-// };
-
-// run().catch(console.dir);

@@ -1,5 +1,3 @@
-import { getMovies } from '@/lib/mongodb/movies';
-import Movies from './components/Movies';
 import Link from 'next/link';
 // import { run } from '@/lib/mongodb/movies';
 
