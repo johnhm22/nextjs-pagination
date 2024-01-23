@@ -13,7 +13,7 @@ const Page = async () => {
               href={'/movies'}
               className='mr-4 rounded-md bg-slate-100 px-2'
             >
-              Movies
+              Show Movies
             </Link>
           </div>
         </div>
