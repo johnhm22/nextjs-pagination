@@ -13,9 +13,6 @@ if (!URI) {
 
 const client = new MongoClient(URI, options);
 
-//database name
-const dbName = 'sample_mflix';
-
 let clientPromise: Promise<MongoClient>;
 
 if (process.env.NODE_ENV !== 'production') {
